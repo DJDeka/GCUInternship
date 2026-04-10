@@ -6,6 +6,7 @@
     <title>Admin Dashboard | GCU</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet">
     <script id="tailwind-config">
         tailwind.config = {
             theme: {
@@ -16,12 +17,20 @@
             }
         }
     </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
 </head>
 <body class="bg-surface text-primary font-sans">
-    
-    <div id="loginSection" class="min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
-            <h1 class="text-3xl font-serif font-bold mb-6 text-center">Admin Login</h1>
+
+    <!-- Login Section -->
+    <div id="loginSection" class="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div class="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md border border-primary/10">
+            <div class="text-center mb-8">
+                <span class="material-symbols-outlined text-5xl text-primary mb-3 block">admin_panel_settings</span>
+                <h1 class="text-3xl font-serif font-bold">Admin Login</h1>
+                <p class="text-sm text-primary/50 mt-1">GCU Internship Portal</p>
+            </div>
             <form id="loginForm" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold mb-1">Username</label>
@@ -32,25 +41,37 @@
                     <input id="password" type="password" class="w-full p-3 bg-gray-100 rounded-lg border border-transparent focus:border-primary outline-none" required>
                 </div>
                 <div id="loginError" class="text-red-600 text-sm hidden">Invalid credentials.</div>
-                <button type="submit" class="w-full py-3 bg-primary text-white rounded-lg font-bold hover:bg-opacity-90">Login</button>
+                <button type="submit" class="w-full py-3 bg-primary text-white rounded-lg font-bold hover:bg-opacity-90 transition-all">Login</button>
             </form>
         </div>
     </div>
 
-    <div id="dashboardSection" class="min-h-screen p-8 hidden">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl font-serif font-bold">Registration Dashboard</h1>
-                <button id="logoutBtn" class="px-4 py-2 bg-red-100 text-red-700 rounded-lg font-bold text-sm hover:bg-red-200">Logout</button>
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="min-h-screen p-6 hidden">
+        <div class="max-w-screen-2xl mx-auto">
+
+            <!-- Header -->
+            <div class="flex flex-wrap justify-between items-center mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-serif font-bold">Registration Dashboard</h1>
+                    <p class="text-sm text-primary/50 mt-1">GCU Summer Internship 2026</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="totalCount" class="px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-full"></span>
+                    <button id="logoutBtn" class="px-4 py-2 bg-red-100 text-red-700 rounded-lg font-bold text-sm hover:bg-red-200 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">logout</span> Logout
+                    </button>
+                </div>
             </div>
-            
-            <div class="bg-white p-6 rounded-xl shadow-lg mb-8 flex items-end gap-4">
-                <div class="flex-1 max-w-sm">
-                    <label class="block text-sm font-semibold mb-2">Filter by Department</label>
-                    <select id="departmentFilter" class="w-full p-3 bg-gray-100 rounded-lg">
+
+            <!-- Toolbar -->
+            <div class="bg-white p-5 rounded-xl shadow-md mb-6 flex flex-wrap items-end gap-4">
+                <!-- Filter -->
+                <div class="flex-1 min-w-[180px]">
+                    <label class="block text-xs font-semibold mb-1 text-primary/60 uppercase tracking-wider">Filter by Department</label>
+                    <select id="departmentFilter" class="w-full p-3 bg-gray-100 rounded-lg text-sm">
                         <option value="">All Departments</option>
-                        <!-- Added dynamically or manually; keep basic for now -->
-                        <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                        <option value="Computer Science &amp; Engineering">Computer Science &amp; Engineering</option>
                         <option value="Civil Engineering">Civil Engineering</option>
                         <option value="Electrical Engineering">Electrical Engineering</option>
                         <option value="Electronics and Communication Engineering">Electronics and Communication Engineering</option>
@@ -63,9 +84,9 @@
                         <option value="Economics">Economics</option>
                         <option value="Sociology">Sociology</option>
                         <option value="Political Science">Political Science</option>
-                        <option value="English & Foreign Language">English & Foreign Language</option>
+                        <option value="English &amp; Foreign Language">English &amp; Foreign Language</option>
                         <option value="Education">Education</option>
-                        <option value="Journalism & Mass Communication">Journalism & Mass Communication</option>
+                        <option value="Journalism &amp; Mass Communication">Journalism &amp; Mass Communication</option>
                         <option value="Law">Law</option>
                         <option value="Business Administration">Business Administration</option>
                         <option value="Commerce">Commerce</option>
@@ -78,12 +99,30 @@
                         <option value="Pharmaceutical Science">Pharmaceutical Science</option>
                     </select>
                 </div>
+
+                <!-- Action buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button id="exportAllBtn" class="flex items-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg font-semibold text-sm hover:bg-green-700 transition-all">
+                        <span class="material-symbols-outlined text-sm">download</span> Export All CSV
+                    </button>
+                    <button id="exportSelectedBtn" class="hidden flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg font-semibold text-sm hover:bg-blue-700 transition-all">
+                        <span class="material-symbols-outlined text-sm">file_download</span> Export Selected
+                    </button>
+                    <button id="deleteSelectedBtn" class="hidden flex items-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg font-semibold text-sm hover:bg-red-700 transition-all">
+                        <span class="material-symbols-outlined text-sm">delete_sweep</span> Delete Selected
+                    </button>
+                </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-lg overflow-x-auto">
+            <!-- Table -->
+            <div class="bg-white rounded-xl shadow-md overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-gray-100 text-sm uppercase tracking-wide">
+                        <tr class="bg-gray-100 text-xs uppercase tracking-wide text-primary/60">
+                            <th class="p-4 border-b w-10">
+                                <input type="checkbox" id="selectAll" class="w-4 h-4 rounded cursor-pointer">
+                            </th>
+                            <th class="p-4 border-b">#</th>
                             <th class="p-4 border-b">Name</th>
                             <th class="p-4 border-b">Email</th>
                             <th class="p-4 border-b">Institute</th>
@@ -93,6 +132,7 @@
                             <th class="p-4 border-b">Domain</th>
                             <th class="p-4 border-b">Phone</th>
                             <th class="p-4 border-b">Receipt</th>
+                            <th class="p-4 border-b">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="dataTableBody" class="text-sm">
@@ -100,6 +140,19 @@
                     </tbody>
                 </table>
                 <div id="loadingMessage" class="p-8 text-center text-gray-500 font-semibold">Loading data...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="deleteModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full mx-4">
+            <span class="material-symbols-outlined text-5xl text-red-500 block text-center mb-4">warning</span>
+            <h2 class="text-xl font-serif font-bold text-center mb-2">Confirm Delete</h2>
+            <p id="deleteModalMsg" class="text-sm text-center text-primary/60 mb-6">Are you sure you want to delete this record? This action cannot be undone.</p>
+            <div class="flex gap-3">
+                <button id="cancelDeleteBtn" class="flex-1 py-3 bg-gray-100 text-primary rounded-lg font-bold hover:bg-gray-200 transition-all">Cancel</button>
+                <button id="confirmDeleteBtn" class="flex-1 py-3 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition-all">Delete</button>
             </div>
         </div>
     </div>
@@ -112,6 +165,7 @@
         const supabase = createClient(supabaseUrl, supabaseKey)
 
         let allData = [];
+        let pendingDeleteIds = [];
 
         // UI Elements
         const loginSection = document.getElementById('loginSection');
@@ -122,9 +176,18 @@
         const departmentFilter = document.getElementById('departmentFilter');
         const dataTableBody = document.getElementById('dataTableBody');
         const loadingMessage = document.getElementById('loadingMessage');
+        const totalCount = document.getElementById('totalCount');
+        const selectAllChk = document.getElementById('selectAll');
+        const exportAllBtn = document.getElementById('exportAllBtn');
+        const exportSelectedBtn = document.getElementById('exportSelectedBtn');
+        const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
+        const deleteModal = document.getElementById('deleteModal');
+        const deleteModalMsg = document.getElementById('deleteModalMsg');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
 
         // Check login state
-        if(sessionStorage.getItem('gcu_admin_logged_in') === 'true') {
+        if (sessionStorage.getItem('gcu_admin_logged_in') === 'true') {
             showDashboard();
         }
 
@@ -132,8 +195,7 @@
             e.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
-
-            if(user === 'admin' && pass === 'admin') {
+            if (user === 'admin' && pass === 'admin') {
                 sessionStorage.setItem('gcu_admin_logged_in', 'true');
                 loginError.classList.add('hidden');
                 showDashboard();
@@ -152,6 +214,60 @@
             renderData(departmentFilter.value);
         });
 
+        // Select All checkbox
+        selectAllChk.addEventListener('change', () => {
+            document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = selectAllChk.checked);
+            updateBulkButtons();
+        });
+
+        // Export All
+        exportAllBtn.addEventListener('click', () => {
+            const filtered = getFilteredData();
+            exportToCSV(filtered, 'gcu_registrations_all.csv');
+        });
+
+        // Export Selected
+        exportSelectedBtn.addEventListener('click', () => {
+            const selected = getSelectedRows();
+            exportToCSV(selected, 'gcu_registrations_selected.csv');
+        });
+
+        // Delete Selected
+        deleteSelectedBtn.addEventListener('click', () => {
+            const selected = getSelectedRowIds();
+            if (selected.length === 0) return;
+            pendingDeleteIds = selected;
+            deleteModalMsg.textContent = `Are you sure you want to delete ${selected.length} record(s)? This action cannot be undone.`;
+            deleteModal.classList.remove('hidden');
+        });
+
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteModal.classList.add('hidden');
+            pendingDeleteIds = [];
+        });
+
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (pendingDeleteIds.length === 0) return;
+            confirmDeleteBtn.textContent = 'Deleting...';
+            confirmDeleteBtn.disabled = true;
+
+            const { error } = await supabase
+                .from('gcu_registrations')
+                .delete()
+                .in('id', pendingDeleteIds);
+
+            confirmDeleteBtn.textContent = 'Delete';
+            confirmDeleteBtn.disabled = false;
+            deleteModal.classList.add('hidden');
+            pendingDeleteIds = [];
+
+            if (error) {
+                alert('Error deleting: ' + error.message);
+            } else {
+                await fetchData();
+            }
+        });
+
         async function showDashboard() {
             loginSection.classList.add('hidden');
             dashboardSection.classList.remove('hidden');
@@ -161,7 +277,8 @@
         async function fetchData() {
             loadingMessage.classList.remove('hidden');
             dataTableBody.innerHTML = '';
-            
+            selectAllChk.checked = false;
+
             const { data, error } = await supabase
                 .from('gcu_registrations')
                 .select('*')
@@ -171,7 +288,7 @@
 
             if (error) {
                 console.error(error);
-                dataTableBody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500">Error fetching data</td></tr>`;
+                dataTableBody.innerHTML = `<tr><td colspan="12" class="p-4 text-center text-red-500">Error fetching data</td></tr>`;
                 return;
             }
 
@@ -179,37 +296,117 @@
             renderData('');
         }
 
+        function getFilteredData() {
+            const dept = departmentFilter.value;
+            return dept ? allData.filter(item => item.department === dept) : allData;
+        }
+
+        function getSelectedRowIds() {
+            return [...document.querySelectorAll('.row-checkbox:checked')].map(cb => cb.dataset.id);
+        }
+
+        function getSelectedRows() {
+            const ids = new Set(getSelectedRowIds());
+            return allData.filter(item => ids.has(String(item.id)));
+        }
+
+        function updateBulkButtons() {
+            const count = document.querySelectorAll('.row-checkbox:checked').length;
+            if (count > 0) {
+                exportSelectedBtn.classList.remove('hidden');
+                deleteSelectedBtn.classList.remove('hidden');
+                exportSelectedBtn.textContent = '';
+                exportSelectedBtn.innerHTML = `<span class="material-symbols-outlined text-sm">file_download</span> Export Selected (${count})`;
+                deleteSelectedBtn.innerHTML = `<span class="material-symbols-outlined text-sm">delete_sweep</span> Delete Selected (${count})`;
+            } else {
+                exportSelectedBtn.classList.add('hidden');
+                deleteSelectedBtn.classList.add('hidden');
+            }
+        }
+
         function renderData(filterDept) {
             dataTableBody.innerHTML = '';
-            const filtered = filterDept 
+            selectAllChk.checked = false;
+            updateBulkButtons();
+
+            const filtered = filterDept
                 ? allData.filter(item => item.department === filterDept)
                 : allData;
 
+            totalCount.textContent = `${filtered.length} record${filtered.length !== 1 ? 's' : ''}`;
+
             if (filtered.length === 0) {
-                dataTableBody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-gray-500">No registrations found.</td></tr>`;
+                dataTableBody.innerHTML = `<tr><td colspan="12" class="p-6 text-center text-gray-500">No registrations found.</td></tr>`;
                 return;
             }
 
-            filtered.forEach(item => {
+            filtered.forEach((item, idx) => {
                 const tr = document.createElement('tr');
-                tr.className = 'border-b hover:bg-gray-50';
+                tr.className = 'border-b hover:bg-gray-50 transition-colors';
                 tr.innerHTML = `
-                    <td class="p-4 font-medium">${item.first_name || ''} ${item.last_name || ''}</td>
+                    <td class="p-4">
+                        <input type="checkbox" class="row-checkbox w-4 h-4 rounded cursor-pointer" data-id="${item.id}">
+                    </td>
+                    <td class="p-4 text-primary/40 text-xs">${idx + 1}</td>
+                    <td class="p-4 font-medium whitespace-nowrap">${item.first_name || ''} ${item.last_name || ''}</td>
                     <td class="p-4">${item.email || ''}</td>
                     <td class="p-4">${item.institute_name || ''}</td>
-                    <td class="p-4">${item.current_level_study || ''}</td>
+                    <td class="p-4"><span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-semibold">${item.current_level_study || ''}</span></td>
                     <td class="p-4">${item.degree_name || ''}</td>
-                    <td class="p-4">${item.department || ''}</td>
-                    <td class="p-4">${item.internship_domain || ''}</td>
-                    <td class="p-4">${item.whatsapp_number || ''}</td>
+                    <td class="p-4 text-xs">${item.department || ''}</td>
+                    <td class="p-4 text-xs">${item.internship_domain || '—'}</td>
+                    <td class="p-4 whitespace-nowrap">${item.whatsapp_number || ''}</td>
                     <td class="p-4">
-                        ${item.payment_receipt_url && item.payment_receipt_url.startsWith('data:') 
-                          ? `<a href="${item.payment_receipt_url}" target="_blank" class="text-secondary font-bold hover:underline" download="receipt.png">Download</a>`
-                          : '<span class="text-gray-400">N/A</span>'}
+                        ${item.payment_receipt_url && item.payment_receipt_url.startsWith('data:')
+                          ? `<a href="${item.payment_receipt_url}" target="_blank" class="text-secondary font-bold hover:underline text-xs" download="receipt.png">Download</a>`
+                          : '<span class="text-gray-400 text-xs">N/A</span>'}
+                    </td>
+                    <td class="p-4">
+                        <button class="delete-row-btn flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-100 transition-all" data-id="${item.id}" data-name="${item.first_name || ''} ${item.last_name || ''}">
+                            <span class="material-symbols-outlined text-sm">delete</span> Delete
+                        </button>
                     </td>
                 `;
                 dataTableBody.appendChild(tr);
             });
+
+            // Row checkbox listeners
+            document.querySelectorAll('.row-checkbox').forEach(cb => {
+                cb.addEventListener('change', updateBulkButtons);
+            });
+
+            // Per-row delete listeners
+            document.querySelectorAll('.delete-row-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    pendingDeleteIds = [btn.dataset.id];
+                    deleteModalMsg.textContent = `Are you sure you want to delete the record for "${btn.dataset.name}"? This action cannot be undone.`;
+                    deleteModal.classList.remove('hidden');
+                });
+            });
+        }
+
+        function exportToCSV(data, filename) {
+            if (data.length === 0) { alert('No data to export.'); return; }
+            const headers = ['First Name','Last Name','Email','Institute','Level','Degree','Department','Domain','WhatsApp','Registered At'];
+            const rows = data.map(item => [
+                item.first_name || '',
+                item.last_name || '',
+                item.email || '',
+                item.institute_name || '',
+                item.current_level_study || '',
+                item.degree_name || '',
+                item.department || '',
+                item.internship_domain || '',
+                item.whatsapp_number || '',
+                item.created_at ? new Date(item.created_at).toLocaleString() : ''
+            ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(','));
+
+            const csv = [headers.join(','), ...rows].join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = filename; a.click();
+            URL.revokeObjectURL(url);
         }
     </script>
 </body>
