@@ -12,7 +12,7 @@ const depts = [
     "History",
     "Psychology",
     "Economics",
-    "Sociology",
+    "Sociology and Social Work",
     "Political Science",
     "English & Foreign Language",
     "Education",
