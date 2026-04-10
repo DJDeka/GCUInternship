@@ -122,6 +122,20 @@
             transition: all 0.3s ease;
         }
     </style>
+    <script>
+        function handleImageError(img, altName) {
+            if (!img.dataset.failedOnce) {
+                img.dataset.failedOnce = 'true';
+                img.src = 'images/' + altName + '.jpg';
+            } else if (!img.dataset.failedTwice) {
+                img.dataset.failedTwice = 'true';
+                img.src = 'images/' + altName + '.jpeg';
+            } else {
+                const container = img.parentElement;
+                container.innerHTML = `<div class="w-full h-full flex flex-col items-center justify-center text-primary/40 bg-surface-container"><span class="material-symbols-outlined text-4xl mb-2">image_not_supported</span><span class="text-xl font-medium text-center px-4">Flyer Not Available</span></div>`;
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-surface text-primary sans-body selection:bg-secondary-container selection:text-on-secondary-container">
@@ -212,6 +226,72 @@
                 <button class="md:hidden material-symbols-outlined text-primary">menu</button>
             </div>
         </div>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobileMenu"
+            class="hidden md:hidden absolute top-full left-0 w-full bg-surface shadow-2xl border-t border-primary/10 flex-col max-h-[70vh] overflow-y-auto z-50">
+            <div class="flex flex-col p-6 space-y-4">
+                <div class="text-xl font-serif font-bold text-primary border-b border-outline-variant/30 pb-2">
+                    Departments</div>
+
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-computer-science-engineering">Computer Science &amp; Engineering</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-civil-engineering">Civil Engineering</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-electrical-engineering">Electrical Engineering</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-electronics-and-communication-engineering">Electronics and Communication
+                    Engineering</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-mechanical-engineering">Mechanical Engineering</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-computer-application">Computer Application</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-medical-laboratory-technology">Medical Laboratory Technology</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-physiotherapy">Physiotherapy</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-history">History</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-psychology">Psychology</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-economics">Economics</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-sociology">Sociology</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-political-science">Political Science</a>
+
+
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-english-foreign-language">English &amp; Foreign Language</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-education">Education</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-journalism-mass-communication">Journalism &amp; Mass Communication</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap" href="#dept-law">Law</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-business-administration">Business Administration</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-commerce">Commerce</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-physics">Physics</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-chemistry">Chemistry</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-mathematics">Mathematics</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-zoology">Zoology</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-botany">Botany</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-agriculture">Agriculture</a>
+                <a class="block text-sm text-primary/70 hover:text-secondary whitespace-nowrap"
+                    href="#dept-pharmaceutical-science">Pharmaceutical Science</a>
+
+            </div>
+        </div>
+
     </nav>
     <!-- Hero Section -->
     <header class="relative hero-gradient text-white overflow-hidden">
@@ -300,8 +380,8 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Computer Science & Engineering"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Computer Science & Engineering.png"
-                        onerror="this.onerror=null; this.src='images/Computer Science & Engineering.jpg';" />
+                        src="images/Computer Science_Engineering.png"
+                        onerror="handleImageError(this, 'Computer Science & Engineering')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Computer Science & Engineering')"
@@ -314,7 +394,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Computer Science
                         &amp; Engineering</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -326,8 +406,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Civil Engineering"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Civil Engineering.png"
-                        onerror="this.onerror=null; this.src='images/Civil Engineering.jpg';" />
+                        src="images/Civil Engineering.png" onerror="handleImageError(this, 'Civil Engineering')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Civil Engineering')"
@@ -340,7 +419,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Civil Engineering
                     </h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -353,7 +432,7 @@
                     <img alt="Electrical Engineering"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Electrical Engineering.png"
-                        onerror="this.onerror=null; this.src='images/Electrical Engineering.jpg';" />
+                        onerror="handleImageError(this, 'Electrical Engineering')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Electrical Engineering')"
@@ -366,7 +445,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Electrical
                         Engineering</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -379,7 +458,7 @@
                     <img alt="Electronics and Communication Engineering"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Electronics and Communication Engineering.png"
-                        onerror="this.onerror=null; this.src='images/Electronics and Communication Engineering.jpg';" />
+                        onerror="handleImageError(this, 'Electronics and Communication Engineering')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Electronics and Communication Engineering')"
@@ -392,7 +471,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Electronics and
                         Communication Engineering</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -405,7 +484,7 @@
                     <img alt="Mechanical Engineering"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Mechanical Engineering.jpeg"
-                        onerror="this.onerror=null; this.src='images/Mechanical Engineering.jpeg';" />
+                        onerror="handleImageError(this, 'Mechanical Engineering')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Mechanical Engineering')"
@@ -418,7 +497,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Mechanical
                         Engineering</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -431,7 +510,7 @@
                     <img alt="Computer Application"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Computer Application.png"
-                        onerror="this.onerror=null; this.src='images/Computer Application.jpg';" />
+                        onerror="handleImageError(this, 'Computer Application')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Computer Application')"
@@ -444,7 +523,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Computer
                         Application</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -457,7 +536,7 @@
                     <img alt="Medical Laboratory Technology"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Medical Laboratory Technology.png"
-                        onerror="this.onerror=null; this.src='images/Medical Laboratory Technology.jpg';" />
+                        onerror="handleImageError(this, 'Medical Laboratory Technology')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Medical Laboratory Technology')"
@@ -470,7 +549,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Medical
                         Laboratory Technology</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -482,8 +561,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Physiotherapy"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Physiotherapy.png"
-                        onerror="this.onerror=null; this.src='images/Physiotherapy.jpg';" />
+                        src="images/Physiotherapy.png" onerror="handleImageError(this, 'Physiotherapy')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Physiotherapy')"
@@ -496,7 +574,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Physiotherapy
                     </h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -508,7 +586,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="History"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/History.png" onerror="this.onerror=null; this.src='images/History.jpg';" />
+                        src="images/History.png" onerror="handleImageError(this, 'History')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('History')"
@@ -520,7 +598,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">History</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -532,7 +610,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Psychology"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Psychology.png" onerror="this.onerror=null; this.src='images/Psychology.jpg';" />
+                        src="images/Psychology.png" onerror="handleImageError(this, 'Psychology')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Psychology')"
@@ -544,7 +622,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Psychology</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -556,7 +634,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Economics"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Economics.png" onerror="this.onerror=null; this.src='images/Economics.jpg';" />
+                        src="images/Economics.png" onerror="handleImageError(this, 'Economics')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Economics')"
@@ -568,7 +646,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Economics</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -580,7 +658,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Sociology"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Sociology.png" onerror="this.onerror=null; this.src='images/Sociology.jpg';" />
+                        src="images/Sociology.png" onerror="handleImageError(this, 'Sociology')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Sociology')"
@@ -592,7 +670,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Sociology</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -604,8 +682,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Political Science"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Political Science.png"
-                        onerror="this.onerror=null; this.src='images/Political Science.jpg';" />
+                        src="images/Political Science.png" onerror="handleImageError(this, 'Political Science')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Political Science')"
@@ -618,7 +695,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Political Science
                     </h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -631,7 +708,7 @@
                     <img alt="English & Foreign Language"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/English & Foreign Language.png"
-                        onerror="this.onerror=null; this.src='images/English & Foreign Language.jpg';" />
+                        onerror="handleImageError(this, 'English & Foreign Language')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('English & Foreign Language')"
@@ -644,7 +721,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">English &amp;
                         Foreign Language</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -656,7 +733,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Education"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Education.png" onerror="this.onerror=null; this.src='images/Education.jpg';" />
+                        src="images/Education.png" onerror="handleImageError(this, 'Education')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Education')"
@@ -668,7 +745,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Education</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -681,7 +758,7 @@
                     <img alt="Journalism & Mass Communication"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Journalism & Mass Communication.png"
-                        onerror="this.onerror=null; this.src='images/Journalism & Mass Communication.jpg';" />
+                        onerror="handleImageError(this, 'Journalism & Mass Communication')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Journalism & Mass Communication')"
@@ -694,7 +771,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Journalism &amp;
                         Mass Communication</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -706,7 +783,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Law"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Law.png" onerror="this.onerror=null; this.src='images/Law.jpg';" />
+                        src="images/Law.png" onerror="handleImageError(this, 'Law')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Law')"
@@ -718,7 +795,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Law</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -731,7 +808,7 @@
                     <img alt="Business Administration"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Business Administration.png"
-                        onerror="this.onerror=null; this.src='images/Business Administration.jpg';" />
+                        onerror="handleImageError(this, 'Business Administration')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Business Administration')"
@@ -744,7 +821,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Business
                         Administration</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -756,7 +833,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Commerce"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Commerce.png" onerror="this.onerror=null; this.src='images/Commerce.jpg';" />
+                        src="images/Commerce.png" onerror="handleImageError(this, 'Commerce')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Commerce')"
@@ -768,7 +845,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Commerce</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -780,7 +857,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Physics"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Physics.png" onerror="this.onerror=null; this.src='images/Physics.jpg';" />
+                        src="images/Physics.png" onerror="handleImageError(this, 'Physics')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Physics')"
@@ -792,7 +869,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Physics</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -804,7 +881,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Chemistry"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Chemistry.png" onerror="this.onerror=null; this.src='images/Chemistry.jpg';" />
+                        src="images/Chemistry.jpeg" onerror="handleImageError(this, 'Chemistry')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Chemistry')"
@@ -816,7 +893,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Chemistry</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -828,7 +905,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Mathematics"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Mathematics.png" onerror="this.onerror=null; this.src='images/Mathematics.jpg';" />
+                        src="images/Mathematics.jpg" onerror="handleImageError(this, 'Mathematics')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Mathematics')"
@@ -840,7 +917,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Mathematics</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -852,7 +929,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Zoology"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Zoology.png" onerror="this.onerror=null; this.src='images/Zoology.jpg';" />
+                        src="images/Zoology.png" onerror="handleImageError(this, 'Zoology')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Zoology')"
@@ -864,7 +941,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Zoology</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -876,7 +953,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Botany"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Botany.png" onerror="this.onerror=null; this.src='images/Botany.jpg';" />
+                        src="images/Botany.png" onerror="handleImageError(this, 'Botany')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Botany')"
@@ -888,7 +965,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Botany</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -900,7 +977,7 @@
                     class="aspect-[4/5] bg-surface-container relative overflow-hidden flex items-center justify-center p-4">
                     <img alt="Agriculture"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
-                        src="images/Agriculture.png" onerror="this.onerror=null; this.src='images/Agriculture.jpg';" />
+                        src="images/Agriculture.png" onerror="handleImageError(this, 'Agriculture')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Agriculture')"
@@ -912,7 +989,7 @@
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Agriculture</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -925,7 +1002,7 @@
                     <img alt="Pharmaceutical Science"
                         class="dept-image w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 bg-white"
                         src="images/Pharmaceutical Science.png"
-                        onerror="this.onerror=null; this.src='images/Pharmaceutical Science.jpg';" />
+                        onerror="handleImageError(this, 'Pharmaceutical Science')" />
                     <div
                         class="absolute inset-0 bg-primary/40 flex items-center justify-center p-6 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
                         <button onclick="openFlyer('Pharmaceutical Science')"
@@ -938,7 +1015,7 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Pharmaceutical
                         Science</h3>
                     <a href="registration.html"
-                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Register
+                        class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
             </div>
@@ -985,6 +1062,34 @@
             }
             // Fallback if image not found
             window.open('images/' + dept + '.pdf', '_blank');
+        }
+    </script>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    mobileMenuBtn.textContent = 'close';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    mobileMenuBtn.textContent = 'menu';
+                }
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    mobileMenuBtn.textContent = 'menu';
+                });
+            });
         }
     </script>
 </body>
