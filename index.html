@@ -408,7 +408,6 @@
                     <h3 class="text-lg font-bold text-primary mb-4 serif-title h-14 flex items-center">Computer Science
                         &amp; Engineering</h3>
                     <a href="registration.html"
-                        data-registration-closed="true"
                         class="register-btn block w-full text-center bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-all">Apply
                         Now</a>
                 </div>
@@ -1155,15 +1154,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const closedRegistrationButtons = document.querySelectorAll('[data-registration-closed="true"]');
-            closedRegistrationButtons.forEach(btn => {
-                btn.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    alert('Registration Closed !!!');
-                });
-            });
-
             const btns = document.querySelectorAll('button, a');
             btns.forEach(btn => {
                 if (btn.textContent.includes('Register')) {
