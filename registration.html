@@ -236,6 +236,7 @@
                             <select id="department" required
                                 class="w-full p-4 rounded-lg soft-inset-field font-body appearance-none">
                                 <option disabled="" selected="" value="">Choose Department</option>
+                                <option value="Computer Science & Engineering">Computer Science & Engineering</option>
                                 <option value="Civil Engineering">Civil Engineering</option>
                                 <option value="Electrical Engineering">Electrical Engineering</option>
                                 <option value="Electronics and Communication Engineering">Electronics and Communication
@@ -358,14 +359,11 @@
                     const departmentSelect = document.getElementById('department');
                     const domainContainer = document.getElementById('domainContainer');
                     const internshipDomain = document.getElementById('internshipDomain');
-                    const closedDepartments = ['Computer Science & Engineering'];
 
                     departmentSelect.addEventListener('change', (e) => {
                         if (e.target.value === 'Computer Science & Engineering') {
                             domainContainer.classList.remove('hidden');
                             internshipDomain.required = true;
-                            statusMessage.textContent = 'Registration for Computer Science & Engineering is closed.';
-                            statusMessage.className = 'text-sm font-semibold rounded-lg p-4 bg-red-100 text-red-800 mb-4 block';
                         } else {
                             domainContainer.classList.add('hidden');
                             internshipDomain.required = false;
@@ -376,12 +374,6 @@
 
                     form.addEventListener('submit', async (e) => {
                         e.preventDefault();
-
-                        if (closedDepartments.includes(departmentSelect.value)) {
-                            statusMessage.textContent = 'Registration for Computer Science & Engineering is closed.';
-                            statusMessage.className = 'text-sm font-semibold rounded-lg p-4 bg-red-100 text-red-800 mb-4 block';
-                            return;
-                        }
 
                         // Show loading state
                         submitBtn.disabled = true;
