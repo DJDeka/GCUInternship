@@ -281,7 +281,7 @@
 
             const { data, error } = await supabase
                 .from('gcu_registrations')
-                .select('*')
+                .select('id, first_name, last_name, email, institute_name, current_level_study, degree_name, department, internship_domain, whatsapp_number, created_at')
                 .order('created_at', { ascending: false });
 
             loadingMessage.classList.add('hidden');
@@ -357,9 +357,7 @@
                     <td class="p-4 text-xs">${item.internship_domain || '—'}</td>
                     <td class="p-4 whitespace-nowrap">${item.whatsapp_number || ''}</td>
                     <td class="p-4">
-                        ${item.payment_receipt_url && item.payment_receipt_url.startsWith('data:')
-                          ? `<a href="${item.payment_receipt_url}" target="_blank" class="text-secondary font-bold hover:underline text-xs" download="receipt.png">Download</a>`
-                          : '<span class="text-gray-400 text-xs">N/A</span>'}
+                        <button class="view-receipt-btn text-secondary font-bold hover:underline text-xs" data-id="${item.id}">View</button>
                     </td>
                     <td class="p-4">
                         <button class="delete-row-btn flex items-center gap-1 px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-xs font-semibold hover:bg-red-100 transition-all" data-id="${item.id}" data-name="${item.first_name || ''} ${item.last_name || ''}">
@@ -381,6 +379,27 @@
                     pendingDeleteIds = [btn.dataset.id];
                     deleteModalMsg.textContent = `Are you sure you want to delete the record for "${btn.dataset.name}"? This action cannot be undone.`;
                     deleteModal.classList.remove('hidden');
+                });
+            });
+
+            // Per-row view receipt listeners
+            document.querySelectorAll('.view-receipt-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    btn.textContent = 'Loading...';
+                    btn.disabled = true;
+                    const { data, error } = await supabase
+                        .from('gcu_registrations')
+                        .select('payment_receipt_url')
+                        .eq('id', btn.dataset.id)
+                        .single();
+                    btn.textContent = 'View';
+                    btn.disabled = false;
+                    if (error || !data?.payment_receipt_url) {
+                        alert('No receipt found for this record.');
+                        return;
+                    }
+                    const win = window.open();
+                    win.document.write(`<img src="${data.payment_receipt_url}" style="max-width:100%">`);
                 });
             });
         }
