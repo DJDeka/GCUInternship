@@ -121,6 +121,23 @@
             opacity: 0;
             transition: all 0.3s ease;
         }
+
+        .registration-toast {
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 100;
+            transform: translateY(-1rem);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .registration-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
     <script>
         function handleImageError(img, altName) {
@@ -139,6 +156,15 @@
 </head>
 
 <body class="bg-surface text-primary sans-body selection:bg-secondary-container selection:text-on-secondary-container">
+    <div id="registrationToast" class="registration-toast max-w-sm w-[calc(100%-2rem)]" role="status" aria-live="polite">
+        <div class="flex items-start gap-3 rounded-lg bg-error-container text-on-error-container shadow-2xl border border-error/20 px-5 py-4">
+            <span class="material-symbols-outlined text-error flex-shrink-0">error</span>
+            <p class="text-sm font-semibold leading-6">Sorry! Registration is closed.</p>
+            <button id="registrationToastClose" class="ml-auto text-on-error-container/70 hover:text-on-error-container transition-colors" aria-label="Close notification">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+        </div>
+    </div>
     <!-- TopNavBar -->
     <nav
         class="bg-surface/85 dark:bg-primary/85 backdrop-blur-md border-b border-primary/10 dark:border-surface/10 shadow-[0_32px_64px_-12px_rgba(0,25,67,0.04)] docked full-width top-0 sticky z-50">
@@ -1155,24 +1181,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const closedRegistrationButtons = document.querySelectorAll('[data-registration-closed="true"]');
+            const registrationToast = document.getElementById('registrationToast');
+            const registrationToastClose = document.getElementById('registrationToastClose');
+            let registrationToastTimer;
+
+            const hideRegistrationToast = () => registrationToast?.classList.remove('show');
+            const showRegistrationClosedToast = () => {
+                if (!registrationToast) return;
+                clearTimeout(registrationToastTimer);
+                registrationToast.classList.add('show');
+                registrationToastTimer = setTimeout(hideRegistrationToast, 5000);
+            };
+
+            setTimeout(showRegistrationClosedToast, 200);
+            registrationToastClose?.addEventListener('click', hideRegistrationToast);
+
+            const closedRegistrationButtons = document.querySelectorAll('a[href="registration.html"], [data-registration-closed="true"]');
             closedRegistrationButtons.forEach(btn => {
+                if (btn.tagName === 'A') {
+                    btn.setAttribute('href', '#');
+                }
+
                 btn.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    alert('Registration Closed !!!');
+                    showRegistrationClosedToast();
                 });
-            });
-
-            const btns = document.querySelectorAll('button, a');
-            btns.forEach(btn => {
-                if (btn.textContent.includes('Register')) {
-                    if (btn.tagName === 'A') {
-                        btn.href = 'registration.html';
-                    } else {
-                        btn.addEventListener('click', () => window.location.href = 'registration.html');
-                    }
-                }
             });
         });
     </script>
